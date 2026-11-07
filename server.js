@@ -1,8 +1,10 @@
-
+import "dotenv/config";
+import { getAllOrganizations } from "./src/models/organizations.js";
+import { getAllProjects } from "./src/models/projects.js";
 import express from "express";
 import path from "node:path";
 import { fileURLToPath } from "node:url";
-import "dotenv/config";
+import { getAllCategories } from "./src/models/categories.js";
 
 const app = express();
 const port = process.env.PORT || 3000;
@@ -23,18 +25,51 @@ app.get("/", (req, res) => {
 });
 
 // Organizations page
-app.get("/organizations", (req, res) => {
-  res.render("organizations", { title: "Organizations" });
+
+app.get("/organizations", async (req, res) => {
+  try {
+    const organizations = await getAllOrganizations();
+
+    res.render("organizations", {
+      title: "Organizations",
+      organizations: organizations,
+    });
+  } catch (error) {
+    console.error("Error loading organizations:", error);
+    res.status(500).send("Error loading organizations");
+  }
 });
+
 
 // Service projects page
-app.get("/projects", (req, res) => {
-  res.render("projects", { title: "Service Projects" });
+
+app.get("/projects", async (req, res) => {
+  try {
+    const projects = await getAllProjects();
+
+    res.render("projects", {
+      title: "Service Projects",
+      projects: projects,
+    });
+  } catch (error) {
+    console.error("Error loading projects:", error);
+    res.status(500).send("Error loading projects");
+  }
 });
 
+
 // Categories page
-app.get("/categories", (req, res) => {
-  res.render("categories", { title: "Categories" });
+app.get("/categories", async (req, res) => {
+  try {
+    const categories = await getAllCategories();
+    res.render("categories", {
+      title: "Categories",
+      categories
+    });
+  } catch (error) {
+    console.error(error);
+    res.status(500).send("Error loading categories");
+  }
 });
 
 // Start the server

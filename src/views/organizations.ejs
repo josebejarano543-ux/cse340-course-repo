@@ -6,32 +6,21 @@
   <p>Discover organizations making a difference.</p>
 
   <section class="card-grid">
-    <article class="card">
-      <img
-        src="/images/food-bank.jpg"
-        alt="Volunteers organizing food donations"
-      >
-      <h2>Community Food Bank</h2>
-      <p>Helping families access nutritious food.</p>
-    </article>
+    <% organizations.forEach((organization, index) => { %>
+      <article class="card">
+        <img
+          src="/images/<%= [
+            'food-bank.jpg',
+            'environment.jpg',
+            'education.jpg'
+          ][index % 3] %>"
+          alt="<%= organization.name %>"
+        >
 
-    <article class="card">
-      <img
-        src="/images/environment.jpg"
-        alt="Volunteers planting trees"
-      >
-      <h2>Green Earth Volunteers</h2>
-      <p>Protecting the environment through service.</p>
-    </article>
-
-    <article class="card">
-      <img
-        src="/images/education.jpg"
-        alt="Volunteers helping students learn"
-      >
-      <h2>Education for All</h2>
-      <p>Supporting students and local education.</p>
-    </article>
+        <h2><%= organization.name %></h2>
+        <p><%= organization.description %></p>
+      </article>
+    <% }) %>
   </section>
 </main>
 
