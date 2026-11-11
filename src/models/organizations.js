@@ -12,10 +12,10 @@ const pool = new Pool({
 });
 
 
-export async function getAllOrganizations() {
+export const getAllOrganizations = async () => {
   const result = await pool.query(
     "SELECT * FROM organization ORDER BY organization_id"
   );
 
   return result.rows;
-}
+};

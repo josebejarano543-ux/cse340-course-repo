@@ -10,10 +10,10 @@ const pool = new Pool({
   },
 });
 
-export async function getAllCategories() {
+export const getAllCategories = async () => {
   const result = await pool.query(
     "SELECT * FROM category ORDER BY category_id"
   );
 
   return result.rows;
-}
+};

@@ -10,10 +10,10 @@ const pool = new Pool({
   },
 });
 
-export async function getAllProjects() {
+export const getAllProjects = async () => {
   const result = await pool.query(
     "SELECT * FROM project ORDER BY project_id"
   );
 
   return result.rows;
-}
+};
